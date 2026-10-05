@@ -1,0 +1,96 @@
+{
+  "raid_day": "invite",
+  "max_battle_day": "invite",
+  "gigantamax_max_battle_day": "invite",
+  "dynamax_max_battle_day": "invite",
+  "mega_raid_day": "invite",
+  "super_mega_raid_day": "invite",
+  "shadow_raid_day": "invite",
+  "elite_raid_day": "invite",
+
+  "community_day": "invite",
+  "community_day_classic": "invite",
+  "community_day_makeup": "invite",
+
+  "spotlight_hour": "invite",
+
+  "raid_hour": "invite",
+  "raid_rotation": "invite",
+  "raid_boss_rotation": "invite",
+
+  "gbl_season_update": "invite",
+  "gbl_update": "invite",
+
+  "go_pass_event": "ignore",
+  "weekly_event": "ignore",
+
+  "go_tour": "invite",
+  "go_fest": "invite",
+  "go_wild_area": "invite",
+
+  "twitch_drops": "invite",
+  "code_distribution": "invite",
+
+  "hatch_day": "invite",
+  "research_day": "invite",
+  "battle_day": "invite",
+
+  "saturday_event": "invite",
+
+  "city_safari": "invite",
+  "regional_event": "invite",
+
+  "season": "ignore",
+  "seasonal_event": "ignore",
+  "global_event": "ignore",
+  "pokemon_debut": "ignore",
+  "shiny_debut": "ignore",
+  "costume_pokemon_event": "ignore",
+  "special_background_event": "ignore",
+
+  "timed_research": "ignore",
+  "special_research": "ignore",
+  "field_research_event": "ignore",
+  "collection_challenge": "ignore",
+
+  "go_pass": "ignore",
+  "go_battle_league": "ignore",
+  "battle_event": "ignore",
+  "league_event": "ignore",
+  "cup": "ignore",
+
+  "safari_zone": "ignore",
+  "in_person_event": "ignore",
+  "partner_event": "ignore",
+  "sponsored_event": "ignore",
+
+  "ticketed_event": "invite",
+  "ticket_announcement": "invite",
+  "shop_event": "ignore",
+  "web_store": "invite",
+  "avatar_items": "ignore",
+  "item_release": "ignore",
+  "promo": "invite",
+
+  "game_update": "ignore",
+  "feature_update": "ignore",
+  "pokemon_go_update": "ignore",
+  "bug_fix": "ignore",
+  "known_issue": "ignore",
+
+  "event_update": "invite",
+  "event_reschedule": "invite",
+  "event_cancellation": "invite",
+
+  "unknown": "invite",
+
+  "settings": {
+    "home_location": {
+      "city": "American Fork",
+      "state": "Utah",
+      "country": "United States"
+    },
+    "regional_event_max_distance_miles": 100,
+    "city_safari_max_distance_miles": 100
+  }
+}
