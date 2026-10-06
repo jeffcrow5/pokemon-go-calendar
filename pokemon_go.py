@@ -1,3 +1,4 @@
+import argparse
 import json
 import logging
 from datetime import datetime
@@ -30,6 +31,7 @@ from google_calendar import (
     create_event,
     update_event,
     delete_event,
+    delete_all_events,
 )
 
 from gpu_guard import (
@@ -101,8 +103,32 @@ def get_calendar_periods(
     return []
 
 
-def main():
+def reinitialize_calendar_and_state():
+    deleted_events = delete_all_events()
+    save_state(
+        {
+            "articles": {},
+            "events": {},
+        }
+    )
+
+    logger.info(
+        "REINITIALIZED: deleted %d calendar events and cleared processed state.",
+        deleted_events,
+    )
+
+
+def main(reinitialize_first=False):
     sync_started = datetime.now()
+
+    if reinitialize_first:
+        try:
+            reinitialize_calendar_and_state()
+        except Exception:
+            logger.exception(
+                "FATAL ERROR DURING REINITIALIZATION."
+            )
+            return
 
     try:
         require_system_resources()
@@ -449,4 +475,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Synchronize Pokémon GO news with Google Calendar."
+    )
+    parser.add_argument(
+        "--reinitialize",
+        action="store_true",
+        help=(
+            "Delete every event in the configured Google Calendar, "
+            "clear processed state, then run the sync."
+        ),
+    )
+    args = parser.parse_args()
+    main(reinitialize_first=args.reinitialize)

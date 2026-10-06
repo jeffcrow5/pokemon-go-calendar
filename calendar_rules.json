@@ -21,7 +21,8 @@
   "gbl_season_update": "invite",
   "gbl_update": "invite",
 
-  "go_pass_event": "invite",
+  "monthly_go_pass": "ignore",
+  "weekly_go_pass": "invite",
   "weekly_event": "invite",
 
   "go_tour": "invite",
@@ -53,7 +54,6 @@
   "field_research_event": "invite",
   "collection_challenge": "invite",
 
-  "go_pass": "invite",
   "go_battle_league": "invite",
   "battle_event": "invite",
   "league_event": "invite",

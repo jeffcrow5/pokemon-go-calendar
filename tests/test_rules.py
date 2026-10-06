@@ -75,12 +75,23 @@ def main():
     )
 
     run_test(
-        "GO Pass: October",
+        "Monthly GO Pass",
         make_classification(
             "GO Pass: October",
-            ["go_pass_event"],
+            ["monthly_go_pass"],
             start="2026-10-06T10:00:00",
             end="2026-11-03T10:00:00",
+        ),
+        "ignore",
+    )
+
+    run_test(
+        "Weekly themed GO Pass",
+        make_classification(
+            "Harvest Festival GO Pass",
+            ["weekly_go_pass"],
+            start="2026-10-10T10:00:00",
+            end="2026-10-17T10:00:00",
         ),
         "invite",
     )

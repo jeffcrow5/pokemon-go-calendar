@@ -16,7 +16,8 @@ EVENT_TYPES = [
     "raid_boss_rotation",
     "gbl_season_update",
     "gbl_update",
-    "go_pass_event",
+    "monthly_go_pass",
+    "weekly_go_pass",
     "weekly_event",
     "go_tour",
     "go_fest",
@@ -40,7 +41,6 @@ EVENT_TYPES = [
     "special_research",
     "field_research_event",
     "collection_challenge",
-    "go_pass",
     "go_battle_league",
     "battle_event",
     "league_event",
@@ -326,16 +326,21 @@ Use when the primary event is a Spotlight Hour.
 Use for a recurring weekly event when that weekly event itself is the
 primary announcement.
 
-"go_pass_event":
-Use when the primary announcement is an event associated with the
-GO Pass weekly/event system.
+"monthly_go_pass":
+Use when the primary announcement is the month-long GO Pass, typically
+named "GO Pass: [Month]" (for example, "GO Pass: October"). The pass
+itself spans most or all of a calendar month.
 
-Do not classify every article mentioning GO Pass as "go_pass_event".
-The GO Pass event itself must be the primary subject.
+"weekly_go_pass":
+Use when the primary announcement is a shorter, roughly week-long
+themed GO Pass, typically named for an event or theme (for example,
+"Harvest Festival GO Pass"). Use the announced pass dates and duration,
+not just the name, to distinguish it from the monthly pass.
 
-"go_pass":
-Use only when the primary subject is the GO Pass system/product itself,
-rather than a specific event occurring through GO Pass.
+Do not classify every article mentioning GO Pass as either type. The
+pass itself must be the primary subject. Do not use these types for a
+general article about the GO Pass product or a separate event that only
+mentions pass rewards.
 
 
 ============================================================
@@ -823,20 +828,32 @@ Do NOT add:
 merely because those things are included in the article.
 
 
-EXAMPLE 2 — GO PASS
+EXAMPLE 2 — MONTHLY GO PASS
 
 Article:
 "GO Pass: October"
 
 Correct:
 
-event_types = ["go_pass_event"]
+event_types = ["monthly_go_pass"]
 
-Do not add unrelated categories simply because the article discusses
+EXAMPLE 3 — WEEKLY GO PASS
+
+Article:
+"Harvest Festival GO Pass"
+
+The announcement describes a themed pass available during the roughly
+week-long Harvest Festival event.
+
+Correct:
+
+event_types = ["weekly_go_pass"]
+
+Do not add unrelated categories simply because the pass includes
 rewards, research, bonuses, or other features.
 
 
-EXAMPLE 3 — CITY SAFARI
+EXAMPLE 4 — CITY SAFARI
 
 Article:
 "Pokémon GO City Safari: Boston"
@@ -852,7 +869,7 @@ Do NOT classify it as:
 merely because both are major Pokémon GO events.
 
 
-EXAMPLE 4 — TWITCH DROPS
+EXAMPLE 5 — TWITCH DROPS
 
 Article:
 "Pokémon Night Out Twitch Drops"

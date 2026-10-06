@@ -216,6 +216,40 @@ def delete_event(calendar_event_id):
     ).execute()
 
 
+def delete_all_events():
+    service = get_calendar_service()
+    events_api = service.events()
+    calendar_event_ids = []
+    page_token = None
+
+    while True:
+        response = events_api.list(
+            calendarId=CALENDAR_ID,
+            maxResults=2500,
+            pageToken=page_token,
+        ).execute()
+
+        calendar_event_ids.extend(
+            event["id"]
+            for event in response.get("items", [])
+            if event.get("id")
+        )
+
+        page_token = response.get("nextPageToken")
+
+        if not page_token:
+            break
+
+    for calendar_event_id in calendar_event_ids:
+        events_api.delete(
+            calendarId=CALENDAR_ID,
+            eventId=calendar_event_id,
+            sendUpdates="all",
+        ).execute()
+
+    return len(calendar_event_ids)
+
+
 def get_event(calendar_event_id):
     service = get_calendar_service()
 

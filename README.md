@@ -240,6 +240,28 @@ When deciding whether an event belongs on the calendar, the application should c
 
 This makes it possible to change calendar behavior without modifying the program.
 
+### Current rule defaults
+
+The current `calendar_rules.json` invites every supported event type except
+`monthly_go_pass`, which is ignored. In particular:
+
+* `weekly_go_pass` is invited for short, themed passes such as **Harvest
+  Festival GO Pass**.
+* `monthly_go_pass` is ignored for month-long passes, usually named for a
+  calendar month (such as **GO Pass: October**).
+* `city_safari` and `regional_event` are invited only when a location can be
+  identified within the configured distance of `home_location`.
+
+The classifier distinguishes weekly from monthly passes using the title and
+announced dates/duration. A mention of GO Pass as a reward or feature in a
+different announcement does not make that announcement a GO Pass event.
+Events that have already ended are also skipped independently of these rules.
+
+These are editable defaults, not fixed behavior. If you clone the project,
+change `calendar_rules.json` on your copy to choose which event types you want
+invited; no Python changes are needed. You can also adjust the location and
+distance settings there.
+
 ### Location settings
 
 The rules file also contains:
@@ -308,6 +330,21 @@ The application will:
 10. Apply calendar rules.
 11. Create, update, or delete Google Calendar events as appropriate.
 12. Save persistent state.
+
+### Reprocess all news
+
+To remove **every event** from the configured Google Calendar and clear the
+processed-article state, then immediately run a normal sync, run:
+
+```powershell
+py pokemon_go.py --reinitialize
+```
+
+This is destructive: it deletes all events in that configured calendar, not
+only events created by this automation. The state is cleared only after the
+calendar events have been deleted successfully. If the sync is skipped by the
+resource guard, the reset still completes and the next scheduled run will
+process the articles again.
 
 ## Resource Guard
 

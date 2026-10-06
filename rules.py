@@ -113,6 +113,7 @@ def add_saturday_event(classification):
     excluded_types = {
         "city_safari",
         "regional_event",
+        "monthly_go_pass",
         "go_battle_league",
         "battle_event",
         "league_event",
