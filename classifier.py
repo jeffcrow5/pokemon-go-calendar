@@ -86,9 +86,26 @@ def classify_article(article_text):
     response.raise_for_status()
 
     data = response.json()
-    content = data["message"]["content"]
+    message = data.get("message")
+    content = (
+        message.get("content")
+        if isinstance(message, dict)
+        else None
+    )
 
-    return json.loads(content)
+    if not isinstance(content, str) or not content.strip():
+        done_reason = data.get("done_reason", "unknown")
+        raise ValueError(
+            "Ollama returned an empty classification response "
+            f"(done_reason={done_reason!r})."
+        )
+
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            "Ollama returned invalid JSON for article classification."
+        ) from exc
 
 
 def validate_result(result):
