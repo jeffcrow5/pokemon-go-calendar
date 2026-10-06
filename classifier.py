@@ -74,7 +74,7 @@ def classify_article(article_text):
         ],
         "stream": False,
         "format": "json",
-        "think": False,
+        "think": True,
         "keep_alive": "30s",
     }
 
