@@ -49,27 +49,43 @@ LOG_FILE = __import__("os").path.join(
 )
 
 
-def configure_logging():
+def configure_logging(verbose=False):
     logger = logging.getLogger("pokemon_go")
-    logger.setLevel(logging.INFO)
-
-    if logger.handlers:
-        return logger
-
-    handler = RotatingFileHandler(
-        LOG_FILE,
-        maxBytes=2 * 1024 * 1024,
-        backupCount=3,
-        encoding="utf-8",
+    logger.setLevel(
+        logging.DEBUG if verbose else logging.INFO
     )
 
-    formatter = logging.Formatter(
-        "[%(asctime)s] %(levelname)s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
+    if not any(
+        isinstance(handler, RotatingFileHandler)
+        for handler in logger.handlers
+    ):
+        file_handler = RotatingFileHandler(
+            LOG_FILE,
+            maxBytes=2 * 1024 * 1024,
+            backupCount=3,
+            encoding="utf-8",
+        )
 
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+        formatter = logging.Formatter(
+            "[%(asctime)s] %(levelname)s: %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+    if verbose and not any(
+        getattr(handler, "pokemon_go_console", False)
+        for handler in logger.handlers
+    ):
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(
+            logging.Formatter(
+                "%(levelname)s: %(message)s"
+            )
+        )
+        console_handler.pokemon_go_console = True
+        logger.addHandler(console_handler)
 
     return logger
 
@@ -118,7 +134,8 @@ def reinitialize_calendar_and_state():
     )
 
 
-def main(reinitialize_first=False):
+def main(reinitialize_first=False, verbose=False):
+    configure_logging(verbose=verbose)
     sync_started = datetime.now()
 
     if reinitialize_first:
@@ -486,5 +503,14 @@ if __name__ == "__main__":
             "clear processed state, then run the sync."
         ),
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Also print run logs to the console.",
+    )
     args = parser.parse_args()
-    main(reinitialize_first=args.reinitialize)
+    main(
+        reinitialize_first=args.reinitialize,
+        verbose=args.verbose,
+    )

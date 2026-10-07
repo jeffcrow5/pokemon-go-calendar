@@ -316,6 +316,15 @@ Run a synchronization manually with:
 py pokemon_go.py
 ```
 
+To print the run's log messages to the console while debugging, add `--verbose`
+or its shorthand `-v`:
+
+```powershell
+py pokemon_go.py --verbose
+```
+
+The automation continues to write logs to `automation.log` as usual.
+
 The application will:
 
 1. Check CPU usage.

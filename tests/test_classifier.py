@@ -6,7 +6,7 @@ from classifier import classify_article
 
 class ClassifyArticleTests(unittest.TestCase):
     @patch("classifier.requests.post")
-    def test_enables_thinking_and_parses_json_content(self, post):
+    def test_disables_thinking_and_parses_json_content(self, post):
         result = {"event_types": []}
         response = Mock()
         response.json.return_value = {
@@ -20,7 +20,7 @@ class ClassifyArticleTests(unittest.TestCase):
 
         self.assertEqual(classification, result)
         payload = post.call_args.kwargs["json"]
-        self.assertTrue(payload["think"])
+        self.assertFalse(payload["think"])
         self.assertEqual(payload["format"], "json")
 
     @patch("classifier.requests.post")
